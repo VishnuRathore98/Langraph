@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "langraph"
+version = "0.1.0"
+description = "Learning langgraph and agent building"
+authors = ["VishnuRathore98 <rathorevishnu666@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-dotenv = "^1.1.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+langchain = "^0.3.22"
+langgraph = "^0.3.21"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
