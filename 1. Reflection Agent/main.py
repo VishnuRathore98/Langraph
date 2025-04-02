@@ -14,9 +14,15 @@ def generation_node(state: Sequence[BaseMessage]):
     return generate_chain.invoke({'messages': state})
 
 
+# def reflection_node(messages: Sequence[BaseMessage]) -> List[BaseMessage]:
+#     response = reflect_chain.invoke({'messages': messages})
+#     return [HumanMessage(content=response.content)]
 def reflection_node(messages: Sequence[BaseMessage]) -> List[BaseMessage]:
     response = reflect_chain.invoke({'messages': messages})
-    return [HumanMessage(content=response.content)]
+    if not response.content.strip():
+        return messages  # Preserve original messages if reflection is blank
+    # Append instead of replacing
+    return messages + [HumanMessage(content=response.content)]
 
 
 builder = MessageGraph()
@@ -33,6 +39,7 @@ def should_continue(state: List[BaseMessage]):
 
 
 builder.add_conditional_edges(GENERATE, should_continue)
+builder.add_edge(REFLECT, GENERATE)
 
 graph = builder.compile()
 
@@ -41,4 +48,4 @@ if __name__ == "__main__":
                             Mondays are just mini New Years—fresh starts every week. Let’s make it count! 💪 #MondayMotivation #NewWeekNewGoals
                             """
                           )
-    response = graph.invoke(inputs)
+    response = graph.invoke([inputs])
