@@ -15,6 +15,8 @@ langgraph = "^0.3.21"
 langchain-groq = "^0.3.2"
 ipykernel = "^6.29.5"
 langchain-openai = "^0.3.12"
+langchain-community = "^0.3.21"
+langgraph-prebuilt = "^0.1.8"
 
 
 [build-system]
